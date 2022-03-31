@@ -1,0 +1,4 @@
+- nodemon
+- express
+- .env
+- mongoos
