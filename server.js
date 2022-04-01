@@ -15,7 +15,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 app.use(express.json())
 
-app.use('/api/v1/', imgRouter)
+app.use('/api/v1', imgRouter)
 
 app.get('/', (req, res) => {
   res.send({ app: 'img-uploader' })
