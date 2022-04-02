@@ -4,7 +4,8 @@ import { StatusCodes } from 'http-status-codes'
 const createImg = async (req, res) => {
   try {
     const images = await UserImgSchema.create(req.body)
-    res.status(201).json({ images })
+    // res.status(201).json({ images })
+    console.log(images)
   } catch (error) {
     console.log(error)
     res.status(500).json({ msg: 'there was an error' })
