@@ -1,14 +1,37 @@
 import img from './image.svg'
-import { useDropzone } from 'react-dropzone'
 import { useState, useEffect } from 'react'
-// import axios from 'axios'
+import axios from 'axios'
 
-const ImageContainer = ({ uploadeImages }) => {
+const ImageContainer = () => {
   const [fileSrc, setFileSrc] = useState([])
 
+  const buttonHandler = (img) => {
+    // e.preventDefault()
+
+    console.log(img)
+    setFileSrc(img)
+  }
+  const addImage = async () => {
+    console.log(fileSrc)
+    try {
+      const data = new FormData()
+      data.append('myFile', fileSrc)
+
+      let response = await axios.post('/api/v1/uploadeImages', data)
+      if (response.status === 200) {
+        console.log(response)
+      }
+    } catch (error) {
+      console.log(error.response)
+    }
+  }
+
   useEffect(() => {
-    const data = new FormData()
-  })
+    console.log(fileSrc.length)
+    if (fileSrc.length !== 0) {
+      addImage()
+    }
+  }, [fileSrc])
 
   return (
     <div className='img-contant'>
@@ -38,9 +61,8 @@ const ImageContainer = ({ uploadeImages }) => {
       <input
         type='file'
         accept='image/*'
-        multiple
         id='file'
-        onChange={(e) => setFileSrc(e.target.files)}
+        onChange={(e) => buttonHandler(e.target.files[0])}
       />
       <label htmlFor='file'>browser files</label>
       {/* </span> */}
