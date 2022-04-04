@@ -1,27 +1,29 @@
 import UserImgSchema from '../model/userImage.js'
 import { StatusCodes } from 'http-status-codes'
 
-const createImg = async (req, res) => {
-  // console.log(req.file.file)
+const createImg = async (req, res, next) => {
   try {
-    let images = req.file ? req.file.file : null
+    const images = await UserImgSchema.create({
+      fileName: req.file.filename,
+      filePath: req.file.path,
+      fileType: req.file.mimetype,
+      fileSize: req.file.size,
+    })
     console.log(images)
-    const dataImg = await UserImgSchema.create(images)
 
-    // await dataImg.save()
-    console.log(dataImg)
-    res.status(StatusCodes.OK).json({ image: dataImg })
+    await images.save()
+
+    res.status(StatusCodes.OK).json({ images })
   } catch (error) {
     console.log(error)
-    res.status(500).json({ msg: 'there was an error' })
+    res.status(500).json({ msg: error })
   }
-
-  // res.status(StatusCodes.CREATED).json({ name, src })
-  // res.send(`images created`)
 }
 
-const getAllImgs = async (req, res) => {
-  res.send('get all images')
+const getAllImgs = async (req, res, next) => {
+  const images = await UserImgSchema.find({})
+  console.log(images)
+  res.status(StatusCodes.OK).json({ images })
 }
 
 const deleteImg = async (req, res) => {

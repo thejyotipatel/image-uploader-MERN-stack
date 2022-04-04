@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react'
 
-const ImageAfterUpdoad = ({ setCopyAlert, copyAlert }) => {
-  const [url, setUrl] = useState(
-    'https://github.com/rohit-114/image-uploader/blob/main/client/src/components/Uploaded.jsx'
-  )
+const ImageAfterUpdoad = ({ setCopyAlert, copyAlert, url }) => {
+  // const { fileName, filePath } = imageData[0]
   const handleButton = () => {
-    navigator.clipboard.writeText(url)
+    navigator.clipboard.writeText(`\api\v1${url}`)
     setCopyAlert(true)
   }
   useEffect(() => {
@@ -13,22 +11,19 @@ const ImageAfterUpdoad = ({ setCopyAlert, copyAlert }) => {
       setCopyAlert(false)
     }, 3000)
   }, [copyAlert])
+
   return (
     <div className='after-image-contaner'>
-      <div className=''></div>
-      <span className='material-icons'>check_circle</span>
-      <img
-        src='https://images-eu.ssl-images-amazon.com/images/I/51T8OXMiB5L._SY264_BO1,204,203,200_QL40_FMwebp_.jpg'
-        alt='image'
-        className='img'
-      />
+      <span className='material-icons sucess-icon'>check_circle</span>
+      <p className='sucess-text'>uploaded successfully!</p>
+      <img src={`\\api/v1\\${url}`} alt='image' className='img' />
       <div className='url-contant'>
         <input
           type='url'
           name='copyImage'
           className='image-url'
           readOnly
-          value={url}
+          value={`\\api\\v1${url}`}
         />
         <button className='copy-btn' onClick={() => handleButton()}>
           copy Link

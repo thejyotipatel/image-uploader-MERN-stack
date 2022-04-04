@@ -2,35 +2,61 @@ import img from './image.svg'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-const ImageContainer = () => {
-  const [fileSrc, setFileSrc] = useState([])
+const ImageContainer = ({
+  setImageData,
+  setIsUploading,
+  setUploaded,
+  url,
+  setUrl,
+}) => {
+  const [fileSrc, setFileSrc] = useState()
+  const [uploading, setUploading] = useState(false)
 
   const buttonHandler = (img) => {
-    // e.preventDefault()
-
-    console.log(img)
     setFileSrc(img)
   }
   const addImage = async () => {
     console.log(fileSrc)
-    try {
-      const data = new FormData()
-      data.append('myFile', fileSrc)
 
-      let response = await axios.post('/api/v1/uploadeImages', data)
+    try {
+      setIsUploading(true)
+      const data = new FormData()
+      data.append('myfile', fileSrc)
+      let response = await axios.post('/api/v1/uploadeImages', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+
       if (response.status === 200) {
-        console.log(response)
+        // setaUploaded(true)
+        getImage()
       }
     } catch (error) {
-      console.log(error.response)
+      console.log(error)
+    } finally {
+      setTimeout(() => {
+        setIsUploading(false)
+        setUploaded(true)
+      }, 1000)
+    }
+  }
+  const getImage = async () => {
+    try {
+      let response = await axios.get('/api/v1/uploadeImages')
+
+      console.log(response.data.images[0].filePath)
+      setUrl(response.data.images[0].filePath)
+      setImageData(response.data)
+    } catch (error) {
+      console.log(error)
     }
   }
 
   useEffect(() => {
-    console.log(fileSrc.length)
-    if (fileSrc.length !== 0) {
-      addImage()
-    }
+    if (!fileSrc) return
+    addImage()
+    getImage()
   }, [fileSrc])
 
   return (

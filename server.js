@@ -4,6 +4,10 @@ import dotenv from 'dotenv'
 dotenv.config()
 import morgan from 'morgan'
 
+import { dirname } from 'path'
+import { fileURLToPath } from 'url'
+import path from 'path'
+
 import connectDB from './db/connect.js'
 // routers
 import imgRouter from './router/imgRouter.js'
@@ -16,8 +20,12 @@ if (process.env.NODE_ENV !== 'production') {
 
 app.use(express.json())
 
-app.use('/api/v1', imgRouter)
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
+// app.use(express.static(path.resolve(__dirname, '/client')))
+app.use('./images', express.static('images'))
+
+app.use('/api/v1', imgRouter)
 app.get('/', (req, res) => {
   res.send({ app: 'img-uploader' })
 })

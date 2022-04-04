@@ -180,16 +180,36 @@ input[type='file'] + label {
   justify-items: center;
 }
 
+.sucess-icon {
+  color: var(--green-color);
+  font-size: 35px;
+  font-weight: 500;
+  margin-bottom: 0.2em;
+}
+
+.sucess-text {
+  color: var(--text-color-1);
+  font-size: 18px;
+  text-transform: capitalize;
+  margin-bottom: 1em;
+  font-weight: 500;
+}
+
 .url-contant {
   width: fit-content;
   height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
   margin: 1em 0;
 }
+
 .image-url {
   border: none;
   outline: none;
   border: var(--input-border);
-  padding: 0.25em;
+  padding: 0.3em;
   color: var(--text-color-1);
   background-color: var(--bg-color-3);
   border-radius: 8px 0 0 8px;
@@ -198,7 +218,7 @@ input[type='file'] + label {
 }
 .copy-btn {
   margin: 0;
-  padding: 0.5em 0.8em;
+  padding: 0.6em 0.8em;
   border-radius: 0 8px 8px 0;
   text-transform: capitalize;
   background-color: var(--main-color);
@@ -212,6 +232,13 @@ input[type='file'] + label {
 }
 .copy-btn:hover {
   opacity: 0.9;
+}
+@media screen and (max-width: 430px) {
+  .copy-btn,
+  .image-url {
+    border-radius: 4px;
+    margin: 0.2em;
+  }
 }
 /* alert */
 
