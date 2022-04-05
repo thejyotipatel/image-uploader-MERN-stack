@@ -9,14 +9,6 @@ const UserImgSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  fileType: {
-    type: String,
-    required: true,
-  },
-  fileSize: {
-    type: String,
-    required: true,
-  },
 })
 
 export default mongoose.model('ImageUploder', UserImgSchema)

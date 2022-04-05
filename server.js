@@ -18,17 +18,13 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'))
 }
 
-app.use(express.json())
-
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
-// app.use(express.static(path.resolve(__dirname, '/client')))
-app.use('./images', express.static('images'))
+app.use(express.static(path.resolve(__dirname, './images')))
+
+app.use(express.json())
 
 app.use('/api/v1', imgRouter)
-app.get('/', (req, res) => {
-  res.send({ app: 'img-uploader' })
-})
 
 app.use(notFoundMiddleware)
 
