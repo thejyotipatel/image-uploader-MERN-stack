@@ -3,7 +3,7 @@ const router = express.Router()
 import multer from 'multer'
 import path from 'path'
 
-import { createImg, getAllImgs, deleteImg } from '../controller/imgContoller.js'
+import { createImg } from '../controller/imgContoller.js'
 
 const storage = multer.diskStorage({
   destination: (req, file, cd) => {

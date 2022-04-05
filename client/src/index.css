@@ -179,7 +179,9 @@ input[type='file'] + label {
   background-color: var(--bg-color-2);
   justify-items: center;
 }
-
+.after-image-contaner .img {
+  max-width: 400px;
+}
 .sucess-icon,
 .error-icon {
   color: var(--green-color);

@@ -18,4 +18,4 @@ const createImg = async (req, res, next) => {
   }
 }
 
-export { createImg, getAllImgs, deleteImg }
+export { createImg }
