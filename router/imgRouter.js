@@ -1,9 +1,8 @@
 import express from 'express'
 const router = express.Router()
 import multer from 'multer'
-import path from 'path'
 
-import { createImg } from '../controller/imgContoller.js'
+import { createImg, getImg } from '../controller/imgContoller.js'
 
 const storage = multer.diskStorage({
   destination: (req, file, cd) => {
@@ -17,5 +16,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 router.route('/upload').post(upload.single('myfile')).post(createImg)
+
+router.route('/images').get(getImg)
 
 export default router

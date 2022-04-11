@@ -7,15 +7,24 @@ const createImg = async (req, res, next) => {
       filePath: req.file.filename,
       fileName: req.file.originalname,
     })
-    console.log(images)
+    // console.log(images)
 
     await images.save()
 
     res.status(StatusCodes.OK).json({ images })
   } catch (error) {
-    console.log(error)
     res.status(500).json({ msg: error })
   }
 }
 
-export { createImg }
+const getImg = async (req, res, next) => {
+  try {
+    const images = await UserImgSchema.find({})
+    const image = images[0]
+    res.status(StatusCodes.OK).json({ image })
+  } catch (error) {
+    res.status(500).json({ msg: error })
+  }
+}
+
+export { createImg, getImg }

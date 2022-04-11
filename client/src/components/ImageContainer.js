@@ -9,7 +9,7 @@ const ImageContainer = ({ setIsUploading, setUploaded, setUrl }) => {
     setFileSrc(img)
   }
   const addImage = async () => {
-    console.log(fileSrc)
+    // console.log(fileSrc)
 
     try {
       setIsUploading(true)
@@ -22,8 +22,8 @@ const ImageContainer = ({ setIsUploading, setUploaded, setUrl }) => {
       })
 
       if (response.status === 200) {
-        // console.log(response.data.images.filePath)
         setUrl(response.data.images.filePath)
+        getImage()
       }
     } catch (error) {
       console.log(error)
@@ -34,7 +34,19 @@ const ImageContainer = ({ setIsUploading, setUploaded, setUrl }) => {
       }, 1000)
     }
   }
+  const getImage = async () => {
+    try {
+      let response = await axios.get('/api/v1/images')
 
+      if (response.status === 200) {
+        console.log(response.data)
+        // setUrl(response.data.images.filePath)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  console.log(window)
   useEffect(() => {
     if (!fileSrc) return
     addImage()
